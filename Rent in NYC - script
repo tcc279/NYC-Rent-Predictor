@@ -1,0 +1,134 @@
+1. Intro
+	Good moorning/afternoon
+	High or Low? Rent in NYC
+
+	I have lived in NYC for over 8 years and I find that one of the hardest things you will have to do is moving into a new apartment.
+	
+	Whether it be asking your friends to take time off work to help you move, or not being able to find parking spot for your uHaul; the whole things is a hassle
+	
+	In addition, you will quickly find that much of your income will dissapear with the rent check every month
+	
+	Thats brings upon the question: 
+	
+	How do you determine whether or not an apartment listing is a good deal, in order to maxmize your "Bang for Buck"?
+	
+	To simplify, what are the some factors that influence the price of rent?
+	
+	These are two questions that I sought in answer in my quest for NYC real estate knowledge.
+
+
+
+2. Methodology
+	
+	
+
+	First, I needed to collect the data. 
+	
+	I decided to get my data from zillow, making two searches, one for manhattan and one for brooklyn 
+	
+	After cleaning the data, I was able to get 1034 listings, 527 for Manhattan and 507 for Brooklyn, which is a pretty even distribution of listing between the two boroughs
+
+	
+
+	Of those listings, I derived the following variables in terms of what the apartment had to offer: 
+
+	Rent    Bedrooms    Bathrooms    Laundry    Cooling    Heating    Pets    Parking     Neighborhood.
+
+	With the exception of Rent, Bedrooms, and Bathrooms, all my other variables were categorical and take on a value of either 0 or 1
+
+	With a cleaned dataset, I began running different OLS, Ridge, and Lasso models to evaluate the significance of my observed variables
+
+
+
+3. Results
+	
+	To start, I ran a OLS model on the entire dataset using rent as my dependent variable and the rest as my features.
+	
+	The R^2 score was decent (0.69); in other words, the model is able to describe about 70% of variance in the data
+	
+	Furthermore, many of my variables were stasticially significant, the following are the features with p-values lower than 0.05
+	
+	
+	
+	I then ran Lasso and Ridge Cross Validation to regularize my model.
+	
+	I ended chosing Ridge CV due to a slightly higher R^2
+
+	In order to determine which features impacted the model most, I organized the coefficents into 2 buckets: the top 10 and bottom 10
+
+	
+
+	As we can see, location and number of bathrooms impact rental price the most
+
+	for example Soho in Manhattan would have the largest increase and New Utretcht would have the largest decrease in the model.
+
+	We can see a inverse relationship between distance from popular areas of the city and rental price
+
+	
+	
+	For reference, here is where Soho is, and here is where New Utretcht
+
+	
+
+	Following neighborhood in significance in the number of bathrooms  
+
+	Now, I wanted to see why bathrooms had such a large effect compared to bedrooms (which I thought would've had a larger coefficient) 
+
+	Looking at the histograms of bedrooms and bathroom, we can see that as number of bedrooms increase, the number of bathrooms do not increase by the same amount.
+
+	
+
+	To further highlight this point, i plotted the scatter plot of each with respect to rental price
+
+	We can see that most apartments have fewer than 2.5 bathrooms, meaning any increase beyond that is rare
+
+	I then noticed that there were several outliers in terms of number of bathrooms
+
+	Curious, I wanted to look in particular at the apartment with 4.5 bathrooms
+
+
+	Sooo what does our outlier look like?
+
+
+
+	As you can see, this is an incredible apartment in an incredible area...its also got marble everywhere!
+
+	Thus I concluded that I was not modeling many features that came with this apartment, 
+
+	which caused a huge increase in price that was attributed to the unique 4.5 bathroom factor
+
+
+4. Conclusion
+
+	In conclusion, according to this model, the primary focus is to look at the neighborhood the apartment is listed in. 
+
+	Intuitivly, it reinforces the idea that popular areas of NYC are in greater demand for housing, highlighted by the lower rents in unpopular areas
+
+	Furthermore, this makes sense as space is limited in NYC and the variation of apartment sizes is not as great than say, a city in Texas, 
+
+
+	Followed by neighborhood is the number of bathrooms
+
+	This is due to the fact that a unit increase of one bathroom (in particular after 2 bathrooms) 
+
+	represents a substantial change in the quality of the apartment, and ergo the rental price 
+
+	So how do we determine a good deal? Well if you see an apartment in Soho for the price of an apartment in New Utrecht, hop on it!
+
+######
+
+5. Next Steps
+
+	In terms of the next steps
+
+	Obtain complete set of Zillow dataset; I was limited 
+
+	Get greater detail of variables
+
+		like the listing for $19.5K a month, there a variables that i am not capturing such as marble countertops
+
+	Determine if there are any trends rental prices
+
+	Perhaps luxury homes are critiqued on a different level than say a one bedroom apartment in New Utretct
+
+	and may need to be modeled differently
