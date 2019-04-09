@@ -3,7 +3,7 @@ This project scrapes rental data off Zillow and uses regression to model rental 
 
 First, the Zillow webscrape needs to be run
 
-Second, the data needsto be cleaned using the Data_Cleaning notebook
+Second, the data needs to be cleaned using the Data_Cleaning notebook
 
 Lastly, use the Rent Prediction models to create the model
 
